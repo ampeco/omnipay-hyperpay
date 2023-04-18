@@ -1,0 +1,26 @@
+{
+    "name": "ampeco/omnipay-hyperpay",
+    "description": "Omnipay plugin for: https://hyperpay.docs.oppwa.com/",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": { "Ampeco\\OmnipayHyperPay\\": "src/" }
+    },
+    "authors": [
+        {
+            "name": "Alexander Alexiev",
+            "email": "alexander.alexiev@ampeco.com"
+        },
+        {
+            "name": "Valentin Damyanov",
+            "email": "valentin.damyanov@ampeco.global"
+        },
+        {
+            "name": "Petko Kostov",
+            "email": "petko.kostov@ampeco.global"
+        }
+    ],
+    "require": {
+        "omnipay/common": "^3"
+    }
+}
