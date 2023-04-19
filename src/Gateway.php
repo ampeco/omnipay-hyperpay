@@ -59,6 +59,16 @@ class Gateway extends AbstractGateway
         return 'DB';
     }
 
+    public function getToken()
+    {
+        return $this->getParameter('token');
+    }
+
+    public function setToken($value)
+    {
+        return $this->setParameter('token', $value);
+    }
+
     protected function createRequest($class, array $parameters)
     {
         /** @var AbstractRequest */

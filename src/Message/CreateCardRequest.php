@@ -54,6 +54,8 @@ class CreateCardRequest extends AbstractRequest
 
     protected function createResponse($data, $statusCode)
     {
+        $token = json_decode($data, true)['id'] ?? null; //TODO probably make additional checks for success (use $statusCode)
+        $this->getGateway()->setToken($token);
         return $this->response = new CreateCardResponse($this, $data, $statusCode);
     }
 }

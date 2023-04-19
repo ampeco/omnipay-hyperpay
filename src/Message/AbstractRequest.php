@@ -61,10 +61,23 @@ abstract class AbstractRequest extends OmniPayAbstractRequest
         );
     }
 
-    public function getSuccessUrl(): string
+/*    public function getSuccessUrl(): string
     {
+        info('we are in getSuccessUrl ===');
+        info(json_encode($this->getData()));
+
         return route('payments::return_url', [
             'background' => 'white',
         ]);
+    }*/
+
+    public function getSuccessUrl()
+    {
+        return $this->getParameter('successUrl');
+    }
+
+    public function setSuccessUrl($value)
+    {
+        return $this->setParameter('successUrl', $value);
     }
 }
