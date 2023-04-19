@@ -11,7 +11,7 @@ class PurchaseRequest extends AbstractRequest
 
     public function getEndpoint(): string
     {
-        return '/transactions';
+        return '/payments';
     }
 
     /**

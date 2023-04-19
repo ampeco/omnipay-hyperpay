@@ -4,14 +4,15 @@ namespace Ampeco\OmnipayHyperPay\Message;
 
 use Ampeco\OmnipayHyperPay\Gateway;
 use Omnipay\Common\Message\AbstractRequest as OmniPayAbstractRequest;
+use Omnipay\Common\Message\ResponseInterface;
 
 abstract class AbstractRequest extends OmniPayAbstractRequest
 {
     abstract public function getEndpoint();
 
-    const API_URL_PROD = 'https://oppwa.com';
+    const API_URL_PROD = 'https://oppwa.com/v1/';
 
-    const API_URL_TEST = 'https://test.oppwa.com';
+    const API_URL_TEST = 'https://test.oppwa.com/v1/';
 
     protected ?Gateway $gateway;
 
@@ -35,7 +36,8 @@ abstract class AbstractRequest extends OmniPayAbstractRequest
     public function getHeaders(): array
     {
         return [
-            'Content-Type' => 'application/json',
+//            'Content-Type' => 'application/json',
+            'Content-Type' => 'application/x-www-form-urlencoded',
             'Accept' => 'application/json',
             'Authorization' => 'Bearer ' . $this->gateway->getAccessToken(),
         ];
@@ -52,7 +54,7 @@ abstract class AbstractRequest extends OmniPayAbstractRequest
           $this->getHttpMethod(),
            $this->getBaseUrl() . ltrim($this->getEndpoint(), '/'),
             $this->getHeaders(),
-            json_encode($data),
+            http_build_query($data),
         );
 
         return $this->createResponse(
