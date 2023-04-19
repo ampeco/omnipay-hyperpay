@@ -4,10 +4,6 @@ namespace Ampeco\OmnipayHyperPay;
 
 use Ampeco\OmnipayHyperPay\Message\AbstractRequest;
 use Ampeco\OmnipayHyperPay\Message\CreateCardRequest;
-use Ampeco\OmnipayTransbank\Message\DeleteCardRequest;
-use Ampeco\OmnipayTransbank\Message\GetInscriptionTokenRequest;
-use Ampeco\OmnipayTransbank\Message\NotificationRequest;
-use Ampeco\OmnipayTransbank\Message\PurchaseRequest;
 use Omnipay\Common\AbstractGateway;
 
 class Gateway extends AbstractGateway
@@ -21,11 +17,11 @@ class Gateway extends AbstractGateway
 
     public function getDefaultParameters()
     {
-        return array(
-            'accessToken'   => '',
-            'entityId'      => '',
-            'testMode'      => false
-        );
+        return [
+            'accessToken' => '',
+            'entityId' => '',
+            'testMode' => false,
+        ];
     }
 
     public function getEntityId()
@@ -43,12 +39,12 @@ class Gateway extends AbstractGateway
         return $this->createRequest(CreateCardRequest::class, $options);
     }
 
-    public function purchase(array $parameters = array())
+    public function purchase(array $parameters = [])
     {
         return $this->createRequest('\Omnipay\HyperPay\Message\PurchaseRequest', $parameters);
     }
 
-    public function completePurchase(array $parameters = array())
+    public function completePurchase(array $parameters = [])
     {
         return $this->createRequest('\Omnipay\HyperPay\Message\CompletePurchaseRequest', $parameters);
     }
@@ -70,5 +66,4 @@ class Gateway extends AbstractGateway
 
         return $req->setGateway($this);
     }
-
 }

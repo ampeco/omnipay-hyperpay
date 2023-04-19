@@ -10,23 +10,14 @@ class CreateCardResponse extends Response implements RedirectResponseInterface
      */
     public function getToken(): string
     {
-        return $this->data['token'];
-    }
-
-    /**
-     * @return string
-     */
-    public function getUrlWebPay(): string
-    {
-        return $this->data['url'];
+        return $this->data['id'];
     }
 
     public function getRedirectUrl()
     {
-        //TODO fix hardcoded url.
         return "<html>
-            <script src='https://test.oppwa.com/v1/paymentWidgets.js?checkoutId='{$this->getToken()}'></script>
-            <form data-brands='VISA MASTER AMEX'></form>
+            <script src='{$this->request->getBaseUrl()}paymentWidgets.js?checkoutId={$this->getToken()}'></script>
+            <form action='{$this->request->getSuccessUrl()}' class='paymentWidgets' data-brands='VISA MASTER AMEX'></form>
             </html>";
     }
 

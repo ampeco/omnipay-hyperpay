@@ -27,7 +27,15 @@ class Response extends AbstractResponse
      */
     public function getErrorMessage(): ?string
     {
-        return $this->data['error_message'];
+        $errorMsg = null;
+
+        if (!empty($this->data['result']['parameterErrors'])) {
+            foreach ($this->data['result']['parameterErrors'] as $error) {
+                $errorMsg .= $error['message'] . ' ';
+            }
+        }
+
+        return $errorMsg;
     }
 
     public function getCode(): int

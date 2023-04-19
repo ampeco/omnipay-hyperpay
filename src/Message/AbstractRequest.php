@@ -4,7 +4,6 @@ namespace Ampeco\OmnipayHyperPay\Message;
 
 use Ampeco\OmnipayHyperPay\Gateway;
 use Omnipay\Common\Message\AbstractRequest as OmniPayAbstractRequest;
-use Omnipay\Common\Message\ResponseInterface;
 
 abstract class AbstractRequest extends OmniPayAbstractRequest
 {
@@ -36,7 +35,6 @@ abstract class AbstractRequest extends OmniPayAbstractRequest
     public function getHeaders(): array
     {
         return [
-//            'Content-Type' => 'application/json',
             'Content-Type' => 'application/x-www-form-urlencoded',
             'Accept' => 'application/json',
             'Authorization' => 'Bearer ' . $this->gateway->getAccessToken(),
@@ -51,15 +49,22 @@ abstract class AbstractRequest extends OmniPayAbstractRequest
     public function sendData($data)
     {
         $httpResponse = $this->httpClient->request(
-          $this->getHttpMethod(),
-           $this->getBaseUrl() . ltrim($this->getEndpoint(), '/'),
+            $this->getHttpMethod(),
+            $this->getBaseUrl() . ltrim($this->getEndpoint(), '/'),
             $this->getHeaders(),
             http_build_query($data),
         );
 
         return $this->createResponse(
-        $httpResponse->getBody()->getContents(),
-            $httpResponse->getStatusCode()
+            $httpResponse->getBody()->getContents(),
+            $httpResponse->getStatusCode(),
         );
+    }
+
+    public function getSuccessUrl(): string
+    {
+        return route('payments::return_url', [
+            'background' => 'white',
+        ]);
     }
 }
