@@ -7,15 +7,11 @@ use Omnipay\Common\Message\AbstractRequest as OmniPayAbstractRequest;
 
 abstract class AbstractRequest extends OmniPayAbstractRequest
 {
-    abstract public function getEndpoint();
-
-    const API_URL_PROD = 'https://oppwa.com/v1/';
-
-    const API_URL_TEST = 'https://test.oppwa.com/v1/';
-
     protected ?Gateway $gateway;
 
-    public function setGateway(Gateway $gateway)
+    abstract public function getEndpoint();
+
+    public function setGateway(Gateway $gateway): static
     {
         $this->gateway = $gateway;
 
@@ -27,11 +23,6 @@ abstract class AbstractRequest extends OmniPayAbstractRequest
         return $this->gateway;
     }
 
-    public function getBaseUrl()
-    {
-        return $this->getTestMode() ? static::API_URL_TEST : static::API_URL_PROD;
-    }
-
     public function getHeaders(): array
     {
         return [
@@ -41,7 +32,7 @@ abstract class AbstractRequest extends OmniPayAbstractRequest
         ];
     }
 
-    public function getHttpMethod()
+    public function getHttpMethod(): string
     {
         return 'POST';
     }
@@ -50,7 +41,7 @@ abstract class AbstractRequest extends OmniPayAbstractRequest
     {
         $httpResponse = $this->httpClient->request(
             $this->getHttpMethod(),
-            $this->getBaseUrl() . ltrim($this->getEndpoint(), '/'),
+            $this->gateway->getBaseUrl() . $this->getEndpoint(),
             $this->getHeaders(),
             http_build_query($data),
         );

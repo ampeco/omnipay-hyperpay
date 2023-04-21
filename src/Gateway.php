@@ -4,11 +4,16 @@ namespace Ampeco\OmnipayHyperPay;
 
 use Ampeco\OmnipayHyperPay\Message\AbstractRequest;
 use Ampeco\OmnipayHyperPay\Message\CreateCardRequest;
+use Ampeco\OmnipayHyperPay\Message\GetCardRequest;
 use Omnipay\Common\AbstractGateway;
 
 class Gateway extends AbstractGateway
 {
     use CommonParameters;
+
+    const API_URL_PROD = 'https://oppwa.com/v1';
+    const API_URL_TEST = 'https://test.oppwa.com/v1';
+
 
     public function getName(): string
     {
@@ -22,6 +27,11 @@ class Gateway extends AbstractGateway
             'entityId' => '',
             'testMode' => false,
         ];
+    }
+
+    public function getBaseUrl(): string
+    {
+        return $this->getTestMode() ? static::API_URL_TEST : static::API_URL_PROD;
     }
 
     public function getEntityId()
@@ -75,5 +85,10 @@ class Gateway extends AbstractGateway
         $req = parent::createRequest($class, $parameters);
 
         return $req->setGateway($this);
+    }
+
+    public function getCardInfo(array $options = [])
+    {
+        return $this->createRequest(GetCardRequest::class, $options);
     }
 }
