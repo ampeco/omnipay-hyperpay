@@ -39,11 +39,10 @@ class CreateCardRequest extends AbstractRequest
     {
         return
             [
-                'createRegistration' => true,
+                'createRegistration' => 'true', // !!! string not boolean !!!
                 'amount' => 1,
                 'currency' => $this->getCurrency(),
                 'entityId' => $this->getEntityId(),
-                'paymentType' => $this->getPaymentType(),
             ];
     }
 
@@ -56,6 +55,7 @@ class CreateCardRequest extends AbstractRequest
     {
         $token = json_decode($data, true)['id'] ?? null; //TODO probably make additional checks for success (use $statusCode)
         $this->getGateway()->setToken($token);
+
         return $this->response = new CreateCardResponse($this, $data, $statusCode);
     }
 }

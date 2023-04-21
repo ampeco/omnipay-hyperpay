@@ -25,6 +25,11 @@ class CreateCardResponse extends Response implements RedirectResponseInterface
         ]);
     }
 
+    public function getTransactionReference(): ?string
+    {
+        return @$this->data['id'];
+    }
+
      public function isRedirect(): bool
      {
          return true;

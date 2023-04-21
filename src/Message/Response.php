@@ -25,7 +25,7 @@ class Response extends AbstractResponse
      *
      * @return string|null
      */
-    public function getErrorMessage(): ?string
+    public function getErrorMessage(): ?string  //todo format it or remove it
     {
         $errorMsg = null;
 
@@ -45,6 +45,6 @@ class Response extends AbstractResponse
 
     public function isSuccessful(): bool
     {
-        return $this->getCode() < 400 && !$this->getErrorMessage();
+        return $this->getCode() < 400 && !$this->getErrorMessage(); //todo remove it or refactor it
     }
 }
