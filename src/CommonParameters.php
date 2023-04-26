@@ -33,4 +33,20 @@ trait CommonParameters
     {
         return $this->setParameter('payment_type', $value);
     }
+
+    public function getReturnUrl()
+    {
+        return $this->getParameter('returnUrl');
+    }
+
+    /**
+     * Sets the request return URL.
+     *
+     * @param string $value
+     * @return $this
+     */
+    public function setReturnUrl($value)
+    {
+        return $this->setParameter('returnUrl', $value);
+    }
 }

@@ -11,7 +11,12 @@ class PurchaseRequest extends AbstractRequest
 
     public function getEndpoint(): string
     {
-        return '/payments';
+        return '/registrations/' . $this->getToken() . '/payments';
+    }
+
+    public function getCardBrand()
+    {
+        return $this->getParameter('payment_brand');
     }
 
     /**
@@ -19,7 +24,14 @@ class PurchaseRequest extends AbstractRequest
      */
     public function getData()
     {
-        // TODO: Implement getData() method.
+        return
+        [
+            'amount' => $this->getAmount(),
+            'currency' => $this->getCurrency(),
+            'entityId' => $this->gateway->getEntityId(),
+            'paymentType' => $this->gateway->getPaymentType(),
+            'shopperResultUrl' => $this->getReturnUrl(),
+        ];
     }
 
     protected function createResponse($data, $statusCode): PurchaseResponse

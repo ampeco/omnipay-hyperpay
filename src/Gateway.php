@@ -5,6 +5,7 @@ namespace Ampeco\OmnipayHyperPay;
 use Ampeco\OmnipayHyperPay\Message\AbstractRequest;
 use Ampeco\OmnipayHyperPay\Message\CreateCardRequest;
 use Ampeco\OmnipayHyperPay\Message\GetCardInfoRequest;
+use Ampeco\OmnipayHyperPay\Message\PurchaseRequest;
 use Omnipay\Common\AbstractGateway;
 
 class Gateway extends AbstractGateway
@@ -51,7 +52,7 @@ class Gateway extends AbstractGateway
 
     public function purchase(array $parameters = [])
     {
-        return $this->createRequest('\Omnipay\HyperPay\Message\PurchaseRequest', $parameters);
+        return $this->createRequest(PurchaseRequest::class, $parameters);
     }
 
     public function completePurchase(array $parameters = [])
@@ -66,7 +67,7 @@ class Gateway extends AbstractGateway
 
     public function getCreateCardPaymentType(): string
     {
-        return 'DB';//depricated; we should not send it when create card
+        return 'DB';//deprecated; we should not send it when create card
     }
 
     public function getToken()
@@ -91,4 +92,5 @@ class Gateway extends AbstractGateway
     {
         return $this->createRequest(GetCardInfoRequest::class, $options);
     }
+
 }

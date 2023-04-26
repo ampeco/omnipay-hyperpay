@@ -40,7 +40,6 @@ class CreateCardRequest extends AbstractRequest
         return
             [
                 'createRegistration' => 'true', // !!! string not boolean !!!
-                'amount' => 1,
                 'currency' => $this->getCurrency(),
                 'entityId' => $this->getEntityId(),
             ];
