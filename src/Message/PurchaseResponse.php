@@ -5,13 +5,13 @@ namespace Ampeco\OmnipayHyperPay\Message;
 use Omnipay\Common\Message\AbstractResponse;
 use Omnipay\Common\Message\RequestInterface;
 
-class PurchaseResponse extends AbstractResponse
+class PurchaseResponse extends Response
 {
     protected mixed $statusCode;
 
     public function __construct(RequestInterface $request, $data, $statusCode = 200)
     {
-        parent::__construct($request, $data);
+        parent::__construct($request, $data, $statusCode);
         $this->statusCode = $statusCode;
     }
 
@@ -73,7 +73,7 @@ class PurchaseResponse extends AbstractResponse
         return null;
     }
 
-    public function getCode()
+    public function getCode(): int
     {
         return $this->statusCode;
     }
