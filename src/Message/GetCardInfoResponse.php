@@ -33,6 +33,6 @@ class GetCardInfoResponse extends Response
     {
         $paymentProviderCode = @$this->data['result']['code'];
 
-        return $this->getCode() < 400 && $paymentProviderCode == '100.100.400';
+        return $this->getCode() < 400 && $paymentProviderCode == '000.100.110';
     }
 }
