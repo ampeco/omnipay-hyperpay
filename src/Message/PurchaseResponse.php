@@ -17,24 +17,9 @@ class PurchaseResponse extends Response
 
     public function isSuccessful(): bool
     {
-        if (isset($this->data['result'])
-            && empty($this->data['result']['parameterErrors'])
-            && $this->getCode() < 400) {
-            if (!empty($this->data['result']['code'])) {
-                $code = $this->data['result']['code'];
+        $paymentProviderCode = @$this->data['result']['code'];
 
-                return match ($code) {
-                    (bool) preg_match('/^(000\.200)/', $code),
-                    (bool) preg_match('/^(000\.000\.|000\.100\.1|000\.[36])/', $code),
-                    (bool) preg_match('/^(000\.400\.0|000\.400\.100)/', $code) => true,
-                    default => false,
-                };
-            }
-
-            return false;
-        }
-
-        return false;
+        return $this->getCode() < 400 && $paymentProviderCode == '000.200.000';
     }
 
     public function getMessage()
