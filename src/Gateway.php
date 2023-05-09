@@ -6,6 +6,7 @@ use Ampeco\OmnipayHyperPay\Message\AbstractRequest;
 use Ampeco\OmnipayHyperPay\Message\CreateCardRequest;
 use Ampeco\OmnipayHyperPay\Message\GetCardInfoRequest;
 use Ampeco\OmnipayHyperPay\Message\PurchaseRequest;
+use Ampeco\OmnipayHyperPay\Message\DeleteCardRequest;
 use Omnipay\Common\AbstractGateway;
 
 class Gateway extends AbstractGateway
@@ -91,6 +92,11 @@ class Gateway extends AbstractGateway
     public function getCardInfo($options = [])
     {
         return $this->createRequest(GetCardInfoRequest::class, $options);
+    }
+
+    public function deleteCard(array $parameters = [])
+    {
+        return $this->createRequest(DeleteCardRequest::class, $parameters);
     }
 
 }
