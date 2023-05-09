@@ -39,20 +39,6 @@ abstract class AbstractRequest extends OmniPayAbstractRequest
 
     public function sendData($data)
     {
-        // >>> TEST
-        info('we are in sendData getBaseUrl: ' . $this->gateway->getBaseUrl());
-        info('we are in sendData getEndpoint: ' . $this->getEndpoint());
-        info('we are in sendData getHttpMethod: ' . $this->getHttpMethod());
-        info('we are in sendData http_build_query($data): ' . http_build_query($data));
-        info('DATA:', $data);
-
-        if(empty($data)) {
-            info('data is EMPTY');
-        } else {
-            info('data is NOT EMPTY');
-        }
-        // <<< TEST
-
         $httpResponse = $this->httpClient->request(
             $this->getHttpMethod(),
             $this->gateway->getBaseUrl() . $this->getEndpoint(),
