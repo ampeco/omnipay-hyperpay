@@ -23,7 +23,7 @@
     "require": {
         "omnipay/common": "^3",
         "symfony/http-client": "^6.2",
-        "nyholm/psr7": "^1.7"
+        "nyholm/psr7": "^1.0"
     },
     "config": {
         "allow-plugins": {
