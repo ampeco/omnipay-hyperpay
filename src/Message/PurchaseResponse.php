@@ -2,7 +2,6 @@
 
 namespace Ampeco\OmnipayHyperPay\Message;
 
-use Omnipay\Common\Message\AbstractResponse;
 use Omnipay\Common\Message\RequestInterface;
 
 class PurchaseResponse extends Response
@@ -16,6 +15,14 @@ class PurchaseResponse extends Response
     }
 
     public function isSuccessful(): bool
+    {
+        //TODO refactor @
+        $paymentProviderCode = @$this->data['result']['code'];
+
+        return $this->getCode() < 400 && $paymentProviderCode == '000.000.000';
+    }
+
+    public function isPending(): bool
     {
         $paymentProviderCode = @$this->data['result']['code'];
 
@@ -70,5 +77,25 @@ class PurchaseResponse extends Response
         }
 
         return null;
+    }
+
+
+    public function getRedirectUrl()
+    {
+        $url = $this->data['redirect']['url'];
+        foreach ($this->getRedirectData() as $key => $value) {
+            if ($key === 0) {
+                $url .= '?' . $value['name'] . '=' . $value['value'];
+            } else {
+                $url .= '&' . $value['name'] . '=' . $value['value'];
+            }
+        }
+
+        return $url;
+    }
+
+    public function getRedirectData()
+    {
+        return @$this->data['redirect']['parameters'];
     }
 }

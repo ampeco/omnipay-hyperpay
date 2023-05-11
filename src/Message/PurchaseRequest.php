@@ -25,13 +25,13 @@ class PurchaseRequest extends AbstractRequest
     public function getData()
     {
         return
-        [
-            'amount' => $this->getAmount(),
-            'currency' => $this->getCurrency(),
-            'entityId' => $this->gateway->getEntityId(),
-            'paymentType' => $this->gateway->getPaymentType(),
-            'shopperResultUrl' => $this->getReturnUrl(),
-        ];
+            [
+                'amount' => $this->getAmount(),
+                'currency' => $this->getCurrency(),
+                'entityId' => $this->gateway->getEntityId(),
+                'paymentType' => $this->gateway->getPaymentType(),
+                'shopperResultUrl' => $this->getReturnUrl(),
+            ];
     }
 
     protected function createResponse($data, $statusCode): PurchaseResponse

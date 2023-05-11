@@ -4,10 +4,11 @@ namespace Ampeco\OmnipayHyperPay;
 
 use Ampeco\OmnipayHyperPay\Message\AbstractRequest;
 use Ampeco\OmnipayHyperPay\Message\CreateCardRequest;
+use Ampeco\OmnipayHyperPay\Message\DeleteCardRequest;
 use Ampeco\OmnipayHyperPay\Message\GetCardInfoRequest;
 use Ampeco\OmnipayHyperPay\Message\PurchaseRequest;
-use Ampeco\OmnipayHyperPay\Message\DeleteCardRequest;
 use Omnipay\Common\AbstractGateway;
+use Omnipay\Common\Message\NotificationInterface;
 
 class Gateway extends AbstractGateway
 {
@@ -15,7 +16,6 @@ class Gateway extends AbstractGateway
 
     const API_URL_PROD = 'https://oppwa.com/v1';
     const API_URL_TEST = 'https://test.oppwa.com/v1';
-
 
     public function getName(): string
     {
@@ -68,7 +68,7 @@ class Gateway extends AbstractGateway
 
     public function getCreateCardPaymentType(): string
     {
-        return 'DB';//deprecated; we should not send it when create card
+        return 'DB'; //deprecated; we should not send it when create card
     }
 
     public function getToken()
@@ -99,4 +99,18 @@ class Gateway extends AbstractGateway
         return $this->createRequest(DeleteCardRequest::class, $parameters);
     }
 
+    public function acceptNotification(array $requestData) : NotificationInterface
+    {
+        info('requestData....:', [$requestData]);
+
+        return new NotificationResponse(
+            $this->createRequest(PurchaseRequest::class, $requestData),
+            array_merge($requestData, [
+                'isSuccessful' => $isSuccessfull,
+            ]),
+            $notificationStatusCode
+        );
+
+
+    }
 }
