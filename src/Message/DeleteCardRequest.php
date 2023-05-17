@@ -22,8 +22,8 @@ class DeleteCardRequest extends AbstractRequest
     /**
      * @inheritdoc
      */
-    protected function createResponse($data, $statusCode)
+    protected function createResponse($data, $statusCode): Response
     {
-        return $this->response = new DeleteCardResponse($this, $data, $statusCode);
+        return $this->response = new Response($this, $data, $statusCode);
     }
 }

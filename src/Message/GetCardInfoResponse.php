@@ -29,10 +29,4 @@ class GetCardInfoResponse extends Response
         return $this->userId;
     }
 
-    public function isSuccessful(): bool
-    {
-        $paymentProviderCode = @$this->data['result']['code'];
-
-        return $this->getCode() < 400 && $paymentProviderCode == '000.100.110';
-    }
 }

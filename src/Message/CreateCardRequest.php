@@ -42,6 +42,7 @@ class CreateCardRequest extends AbstractRequest
                 'createRegistration' => 'true', // !!! string not boolean !!!
                 'currency' => $this->getCurrency(),
                 'entityId' => $this->getEntityId(),
+                'recurringType' => 'REGISTRATION_BASED',
             ];
     }
 

@@ -6,20 +6,8 @@ use Omnipay\Common\Message\RedirectResponseInterface;
 
 class CreateCardResponse extends Response implements RedirectResponseInterface
 {
-    /**
-     * @return string
-     */
-    /*    public function getToken(): string
-        {
-            return $this->data['id'];
-        }*/
-
     public function getRedirectUrl()
     {
-        /*return "<html>
-            <script src='{$this->request->getBaseUrl()}paymentWidgets.js?checkoutId={$this->getToken()}'></script>
-            <form action='{$this->request->getSuccessUrl()}' class='paymentWidgets' data-brands='VISA MASTER AMEX'></form>
-            </html>";*/
         return route('payments::return_url', [
             'background' => 'white',
         ]);
@@ -27,11 +15,18 @@ class CreateCardResponse extends Response implements RedirectResponseInterface
 
     public function getTransactionReference(): ?string
     {
-        return @$this->data['id'];
+        return $this->data['id'] ?? null;
     }
 
      public function isRedirect(): bool
      {
          return true;
      }
+
+    public function isSuccessful(): bool
+    {
+        $paymentProviderCode = $this->data['result']['code'] ?? null;
+
+        return $this->getCode() < 400 && (preg_match('/^(000\.200)/', $paymentProviderCode) || preg_match('/^(000.000.|000.100.1|000.[36]|000.400.1[12]0)/', $paymentProviderCode));
+    }
 }

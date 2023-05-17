@@ -49,4 +49,14 @@ trait CommonParameters
     {
         return $this->setParameter('returnUrl', $value);
     }
+
+    public function getRegistrationId()
+    {
+        return $this->getParameter('registrationId');
+    }
+
+    public function setRegistrationId($value)
+    {
+        return $this->setParameter('registrationId', $value);
+    }
 }

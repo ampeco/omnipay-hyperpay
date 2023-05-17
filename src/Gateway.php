@@ -3,12 +3,15 @@
 namespace Ampeco\OmnipayHyperPay;
 
 use Ampeco\OmnipayHyperPay\Message\AbstractRequest;
+use Ampeco\OmnipayHyperPay\Message\AuthorizeRequest;
+use Ampeco\OmnipayHyperPay\Message\CaptureRequest;
 use Ampeco\OmnipayHyperPay\Message\CreateCardRequest;
 use Ampeco\OmnipayHyperPay\Message\DeleteCardRequest;
 use Ampeco\OmnipayHyperPay\Message\GetCardInfoRequest;
 use Ampeco\OmnipayHyperPay\Message\PurchaseRequest;
+use Ampeco\OmnipayHyperPay\Message\ReversalRequest;
+use Ampeco\OmnipayHyperPay\Message\TransactionResultRequest;
 use Omnipay\Common\AbstractGateway;
-use Omnipay\Common\Message\NotificationInterface;
 
 class Gateway extends AbstractGateway
 {
@@ -56,6 +59,21 @@ class Gateway extends AbstractGateway
         return $this->createRequest(PurchaseRequest::class, $parameters);
     }
 
+    public function authorize(array $options = [])
+    {
+        return $this->createRequest(AuthorizeRequest::class, $options);
+    }
+
+    public function capture(array $options = [])
+    {
+        return $this->createRequest(CaptureRequest::class, $options);
+    }
+
+    public function void(array $options = [])
+    {
+        return $this->createRequest(ReversalRequest::class, $options);
+    }
+
     public function completePurchase(array $parameters = [])
     {
         return $this->createRequest('\Omnipay\HyperPay\Message\CompletePurchaseRequest', $parameters);
@@ -66,10 +84,6 @@ class Gateway extends AbstractGateway
         return 'SAR';
     }
 
-    public function getCreateCardPaymentType(): string
-    {
-        return 'DB'; //deprecated; we should not send it when create card
-    }
 
     public function getToken()
     {
@@ -99,18 +113,8 @@ class Gateway extends AbstractGateway
         return $this->createRequest(DeleteCardRequest::class, $parameters);
     }
 
-    public function acceptNotification(array $requestData) : NotificationInterface
+    public function transactionResult(array $parameters = [])
     {
-        info('requestData....:', [$requestData]);
-
-        return new NotificationResponse(
-            $this->createRequest(PurchaseRequest::class, $requestData),
-            array_merge($requestData, [
-                'isSuccessful' => $isSuccessfull,
-            ]),
-            $notificationStatusCode
-        );
-
-
+        return $this->createRequest(TransactionResultRequest::class, $parameters);
     }
 }
