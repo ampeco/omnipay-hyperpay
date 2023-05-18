@@ -14,6 +14,11 @@ class CaptureRequest extends AbstractRequest
         return '/payments/' . $this->getTransactionReference();
     }
 
+    public function getCardBrand()
+    {
+        return $this->getParameter('payment_brand');
+    }
+
     /**
      * @inheritDoc
      */
@@ -25,6 +30,7 @@ class CaptureRequest extends AbstractRequest
                 'currency' => $this->getCurrency(),
                 'entityId' => $this->gateway->getEntityId(),
                 'paymentType' => $this->gateway->getPaymentType(),
+                'paymentBrand' => $this->getCardBrand(),
             ];
     }
 

@@ -14,6 +14,10 @@ class ReversalRequest extends AbstractRequest
         return '/payments/' . $this->getTransactionReference();
     }
 
+    public function getCardBrand()
+    {
+        return $this->getParameter('payment_brand');
+    }
     /**
      * @inheritDoc
      */

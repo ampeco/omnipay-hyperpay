@@ -18,14 +18,14 @@ class AuthorizeResponse extends Response
     {
         $paymentProviderCode = $this->data['result']['code'] ?? null;
 
-        return $this->getCode() < 400 && preg_match('/^(000\.200)/', $paymentProviderCode);
+        return $this->getCode() < 400 && preg_match('/^(000.000.|000.100.1|000.[36]|000.400.1[12]0)/', $paymentProviderCode);
     }
 
     public function isPending(): bool
     {
         $paymentProviderCode = $this->data['result']['code'] ?? null;
 
-        return $this->getCode() < 400 && !preg_match('/^(000\.200)/', $paymentProviderCode);
+        return $this->getCode() < 400 && preg_match('/^(000\.200)/', $paymentProviderCode);
 
     }
 
