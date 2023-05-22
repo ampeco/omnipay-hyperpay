@@ -43,6 +43,9 @@ class CreateCardRequest extends AbstractRequest
                 'currency' => $this->getCurrency(),
                 'entityId' => $this->getEntityId(),
                 'recurringType' => 'REGISTRATION_BASED',
+                'standingInstruction.source'=> 'CIT',
+                'standingInstruction.mode' => 'INITIAL',
+
             ];
     }
 

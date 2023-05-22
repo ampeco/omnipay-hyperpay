@@ -26,6 +26,9 @@ class AuthorizeRequest extends AbstractRequest
                 'entityId' => $this->gateway->getEntityId(),
                 'paymentType' => $this->gateway->getPaymentType(),
                 'shopperResultUrl' => $this->getReturnUrl(),
+                'standingInstruction.mode' => 'REPEATED',
+                'standingInstruction.type' => 'UNSCHEDULED',
+                'standingInstruction.source' => 'MIT',
             ];
     }
 
