@@ -22,11 +22,7 @@ class Response extends AbstractResponse
 
     public function getMessage()
     {
-        if (!empty($this->data['result']) && !empty($this->data['result']['description'])) {
-            return $this->data['result']['description'];
-        }
-
-        return null;
+        return $this->data['result']['description'] ?? null;
     }
 
     /**
@@ -36,16 +32,8 @@ class Response extends AbstractResponse
      */
     public function getErrorMessage(): ?string
     {
-
-        if (isset($this->data['result']) && isset($this->data['result']['parameterErrors'])) {
-            return $this->data['result']['parameterErrors'];
-        }
-
-        return null;
-
+        return $this->data['result']['parameterErrors'] ?? null;
     }
-
-
 
     public function getCode(): int|string|null
     {
@@ -74,15 +62,14 @@ class Response extends AbstractResponse
 
     public function isSuccessful(): bool
     {
-        $paymentProviderCode = $this->data['result']['code'] ?? null;
+        $paymentProviderCode = $this->data['result']['code'] ?? '';
 
         return $this->getCode() < 400 && preg_match('/^(000.000.|000.100.1|000.[36]|000.400.1[12]0)/', $paymentProviderCode);
     }
 
-
     public function isPending(): bool
     {
-        $paymentProviderCode = $this->data['result']['code'] ?? null;
+        $paymentProviderCode = $this->data['result']['code'] ?? '';
 
         return $this->getCode() < 400 && preg_match('/^(000\.200)/', $paymentProviderCode);
     }
@@ -104,5 +91,4 @@ class Response extends AbstractResponse
 
         return null;
     }
-
 }

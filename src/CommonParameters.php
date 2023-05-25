@@ -59,4 +59,14 @@ trait CommonParameters
     {
         return $this->setParameter('registrationId', $value);
     }
+
+    public function getToken()
+    {
+        return $this->getParameter('token');
+    }
+
+    public function setToken($value)
+    {
+        return $this->setParameter('token', $value);
+    }
 }

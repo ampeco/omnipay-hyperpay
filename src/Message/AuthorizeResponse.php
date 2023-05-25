@@ -16,14 +16,14 @@ class AuthorizeResponse extends Response
 
     public function isSuccessful(): bool
     {
-        $paymentProviderCode = $this->data['result']['code'] ?? null;
+        $paymentProviderCode = $this->data['result']['code'] ?? '';
 
         return $this->getCode() < 400 && preg_match('/^(000.000.|000.100.1|000.[36]|000.400.1[12]0)/', $paymentProviderCode);
     }
 
     public function isPending(): bool
     {
-        $paymentProviderCode = $this->data['result']['code'] ?? null;
+        $paymentProviderCode = $this->data['result']['code'] ?? '';
 
         return $this->getCode() < 400 && preg_match('/^(000\.200)/', $paymentProviderCode);
 

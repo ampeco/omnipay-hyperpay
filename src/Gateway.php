@@ -27,26 +27,12 @@ class Gateway extends AbstractGateway
 
     public function getDefaultParameters()
     {
-        return [
-            'accessToken' => '',
-            'entityId' => '',
-            'testMode' => false,
-        ];
+        return [];
     }
 
     public function getBaseUrl(): string
     {
         return $this->getTestMode() ? static::API_URL_TEST : static::API_URL_PROD;
-    }
-
-    public function getEntityId()
-    {
-        return $this->getParameter('entityId');
-    }
-
-    public function setEntityId($value)
-    {
-        return $this->setParameter('entityId', $value);
     }
 
     public function createCard(array $options = [])
@@ -74,25 +60,9 @@ class Gateway extends AbstractGateway
         return $this->createRequest(ReversalRequest::class, $options);
     }
 
-    public function completePurchase(array $parameters = [])
-    {
-        return $this->createRequest('\Omnipay\HyperPay\Message\CompletePurchaseRequest', $parameters);
-    }
-
     public function getCreateCardCurrency(): string
     {
         return 'SAR';
-    }
-
-
-    public function getToken()
-    {
-        return $this->getParameter('token');
-    }
-
-    public function setToken($value)
-    {
-        return $this->setParameter('token', $value);
     }
 
     protected function createRequest($class, array $parameters)

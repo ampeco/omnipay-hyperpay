@@ -56,9 +56,4 @@ abstract class AbstractRequest extends OmniPayAbstractRequest
     {
         return $this->getParameter('successUrl');
     }
-
-    public function setSuccessUrl($value)
-    {
-        return $this->setParameter('successUrl', $value);
-    }
 }
