@@ -8,6 +8,9 @@ class CreateCardRequest extends AbstractRequest
 {
     protected string $entityId;
     protected string $paymentType;
+    protected string $userFirstName;
+    protected string $userLastName;
+    protected string $userEmail;
 
     public function getEndpoint(): string
     {
@@ -24,21 +27,62 @@ class CreateCardRequest extends AbstractRequest
         $this->entityId = $entityId;
     }
 
+    public function setUserFirstName($userFirstName): void
+    {
+        $this->userFirstName = $userFirstName;
+    }
+
+    public function getUserFirstName(): string
+    {
+        return $this->userFirstName;
+    }
+
+    public function setUserLastName($userLastName): void
+    {
+        $this->userLastName = $userLastName;
+    }
+
+    public function getUserLastName(): string
+    {
+        return $this->userLastName;
+    }
+
+    public function setUserEmail($userEmail): void
+    {
+        $this->userEmail = $userEmail;
+    }
+
+    public function getUserEmail(): string
+    {
+        return $this->userEmail;
+    }
+
+
     /**
      * @inheritDoc
      */
     public function getData()
     {
-        return
+        $data =
             [
                 'createRegistration' => 'true', // !!! string not boolean !!!
                 'currency' => $this->getCurrency(),
                 'entityId' => $this->getEntityId(),
-                'recurringType' => 'REGISTRATION_BASED',
                 'standingInstruction.source' => 'CIT',
                 'standingInstruction.mode' => 'INITIAL',
 
+                'merchantTransactionId' => $this->getTransactionId(),
+                'customer.givenName' => $this->getUserFirstName(),
+                'customer.surname' => $this->getUserLastName(),
+                'customer.email' => $this->getUserEmail(),
             ];
+
+        if ($this->getTestMode()) {
+
+            $data['testMode'] = 'EXTERNAL';
+        }
+
+        return $data;
     }
 
     public function getHttpMethod(): string

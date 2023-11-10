@@ -69,4 +69,34 @@ trait CommonParameters
     {
         return $this->setParameter('token', $value);
     }
+
+    public function getUserEmail()
+    {
+        return $this->getParameter('userEmail');
+    }
+
+    public function setuserEmail($value)
+    {
+        $this->setParameter('userEmail', $value);
+    }
+
+    public function getUserFirstName()
+    {
+        return $this->getParameter('userFirstName');
+    }
+
+    public function setUserFirstName($value)
+    {
+        $this->setParameter('userFirstName', $value);
+    }
+
+    public function getUserLastName()
+    {
+        $this->getParameter('userLastName');
+    }
+
+    public function setUserLastName($value)
+    {
+        $this->setParameter('userLastName', $value);
+    }
 }

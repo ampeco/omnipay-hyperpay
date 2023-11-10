@@ -1,7 +1,7 @@
 {
     "name": "ampeco/omnipay-hyperpay",
     "description": "Omnipay plugin for: https://hyperpay.docs.oppwa.com/",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "type": "library",
     "license": "MIT",
     "autoload": {

@@ -26,7 +26,7 @@ class PurchaseRequest extends AbstractRequest
     {
         return
             [
-                'amount' => $this->getAmount(),
+                'amount' => $this->getTestMode() ? intval($this->getAmount()) : $this->getAmount(),
                 'currency' => $this->getCurrency(),
                 'entityId' => $this->gateway->getEntityId(),
                 'paymentType' => $this->gateway->getPaymentType(),
