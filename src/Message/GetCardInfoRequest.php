@@ -14,7 +14,7 @@ class GetCardInfoRequest extends AbstractRequest
 
     public function getEndpoint(): string
     {
-        return '/checkouts/' . $this->getCardReference() . '/registration?entityId=' . $this->getGateway()->getEntityId();
+        return '/checkouts/' . $this->getCardReference() . '/payment?entityId=' . $this->getGateway()->getEntityId();
     }
 
     public function getData()

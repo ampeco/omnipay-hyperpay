@@ -23,7 +23,7 @@ class CaptureRequest extends AbstractRequest
             [
                 'amount' => $this->getAmount(),
                 'currency' => $this->getCurrency(),
-                'entityId' => $this->gateway->getEntityId(),
+                'entityId' => $this->gateway->getRecurringEntityId(),
                 'paymentType' => $this->gateway->getPaymentType(),
             ];
     }

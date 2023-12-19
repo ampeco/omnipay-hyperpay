@@ -21,9 +21,9 @@ class AuthorizeRequest extends AbstractRequest
     {
         return
             [
-                'amount' => $this->getAmount(),
+                'amount' => $this->getTestMode() ? intval($this->getAmount()) : $this->getAmount(),
                 'currency' => $this->getCurrency(),
-                'entityId' => $this->gateway->getEntityId(),
+                'entityId' => $this->gateway->getRecurringEntityId(),
                 'paymentType' => $this->gateway->getPaymentType(),
                 'shopperResultUrl' => $this->getReturnUrl(),
                 'standingInstruction.mode' => 'REPEATED',

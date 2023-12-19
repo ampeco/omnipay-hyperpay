@@ -24,6 +24,16 @@ trait CommonParameters
         return $this->setParameter('entity_id', $value);
     }
 
+    public function getRecurringEntityId()
+    {
+        return $this->getParameter('recurring_entity_id');
+    }
+
+    public function setRecurringEntityId($value)
+    {
+        return $this->setParameter('recurring_entity_id', $value);
+    }
+
     public function getPaymentType()
     {
         return $this->getParameter('payment_type');

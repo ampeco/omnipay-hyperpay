@@ -16,7 +16,7 @@ class DeleteCardRequest extends AbstractRequest
 
     public function getData()
     {
-        return [];
+        return $this->getTestMode() ? ['testMode' => 'EXTERNAL'] : [];
     }
 
     /**

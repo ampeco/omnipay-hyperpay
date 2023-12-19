@@ -70,11 +70,13 @@ class CreateCardRequest extends AbstractRequest
                 'entityId' => $this->getEntityId(),
                 'standingInstruction.source' => 'CIT',
                 'standingInstruction.mode' => 'INITIAL',
-
                 'merchantTransactionId' => $this->getTransactionId(),
                 'customer.givenName' => $this->getUserFirstName(),
                 'customer.surname' => $this->getUserLastName(),
                 'customer.email' => $this->getUserEmail(),
+                'amount' => $this->getAmount(),
+                'paymentType' => $this->gateway->getPaymentType(),
+                'standingInstruction.type' => 'UNSCHEDULED',
             ];
 
         if ($this->getTestMode()) {

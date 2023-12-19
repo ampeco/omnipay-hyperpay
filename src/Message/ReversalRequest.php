@@ -25,7 +25,7 @@ class ReversalRequest extends AbstractRequest
     {
         return
             [
-                'entityId' => $this->gateway->getEntityId(),
+                'entityId' => $this->gateway->getRecurringEntityId(),
                 'paymentType' => $this->gateway->getPaymentType(),
             ];
     }

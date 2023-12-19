@@ -65,6 +65,11 @@ class Gateway extends AbstractGateway
         return ['SAR', 'JOD'];
     }
 
+    public function getCreateCardAmount()
+    {
+        return 1;
+    }
+
     protected function createRequest($class, array $parameters)
     {
         /** @var AbstractRequest */
