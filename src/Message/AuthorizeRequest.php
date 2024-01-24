@@ -23,12 +23,13 @@ class AuthorizeRequest extends AbstractRequest
             [
                 'amount' => $this->getTestMode() ? intval($this->getAmount()) : $this->getAmount(),
                 'currency' => $this->getCurrency(),
-                'entityId' => $this->gateway->getEntityId(),
+                'entityId' => $this->gateway->getPaRecurringEntityId(),
                 'paymentType' => $this->gateway->getPaymentType(),
                 'shopperResultUrl' => $this->getReturnUrl(),
                 'standingInstruction.mode' => 'REPEATED',
                 'standingInstruction.type' => 'UNSCHEDULED',
                 'standingInstruction.source' => 'MIT',
+                'merchantTransactionId' => $this->getTransactionReference()
             ];
     }
 

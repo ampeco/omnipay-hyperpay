@@ -21,10 +21,11 @@ class CaptureRequest extends AbstractRequest
     {
         return
             [
-                'amount' => $this->getAmount(),
+                'amount' => $this->getTestMode() ? intval($this->getAmount()) : $this->getAmount(),
                 'currency' => $this->getCurrency(),
-                'entityId' => $this->gateway->getRecurringEntityId(),
+                'entityId' => $this->gateway->getPaRecurringEntityId(),
                 'paymentType' => $this->gateway->getPaymentType(),
+                'merchantTransactionId' => $this->getTransactionReference()
             ];
     }
 

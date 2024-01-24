@@ -5,12 +5,16 @@ namespace Ampeco\OmnipayHyperPay\Message;
 use Omnipay\Common\Message\RedirectResponseInterface;
 
 class CreateCardResponse extends Response implements RedirectResponseInterface
+
+
 {
+    public function __construct(AbstractRequest $request, $data, $statusCode, private $redirectUrl)
+    {
+        parent::__construct($request, $data, $statusCode);
+    }
     public function getRedirectUrl()
     {
-        return route('payments::return_url', [
-            'background' => 'white',
-        ]);
+        return $this->redirectUrl;
     }
 
     public function getTransactionReference(): ?string

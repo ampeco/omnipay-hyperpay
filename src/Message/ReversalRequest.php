@@ -18,16 +18,26 @@ class ReversalRequest extends AbstractRequest
     {
         return $this->getParameter('payment_brand');
     }
+
     /**
      * @inheritDoc
      */
     public function getData()
     {
-        return
+        $data =
             [
-                'entityId' => $this->gateway->getRecurringEntityId(),
+                'entityId' => $this->gateway->getEntityId(),
                 'paymentType' => $this->gateway->getPaymentType(),
+                'amount' => $this->getTestMode() ? intval($this->getAmount()) : $this->getAmount(),
+                'currency' => $this->getCurrency(),
+                'merchantTransactionId' => $this->getTransactionId(),
             ];
+
+        if ($this->getTestMode()) {
+            $data['testMode'] = 'EXTERNAL';
+        }
+
+        return $data;
     }
 
     protected function createResponse($data, $statusCode): Response

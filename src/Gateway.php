@@ -60,9 +60,14 @@ class Gateway extends AbstractGateway
         return $this->createRequest(ReversalRequest::class, $options);
     }
 
-    public function getCreateCardCurrency(): array
+    public function getCreateCardCurrency(): string
     {
-        return ['SAR', 'JOD'];
+       return 'JOD';
+    }
+
+    public function getAvailableCurrencies(): array
+    {
+        return ['JOD', 'SAR'];
     }
 
     public function getCreateCardAmount()

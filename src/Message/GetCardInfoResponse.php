@@ -11,7 +11,7 @@ class GetCardInfoResponse extends Response
     }
     public function getToken()
     {
-        return $this->data['id'];
+        return $this->data['registrationId'];
     }
 
     public function getLast4()
@@ -27,6 +27,30 @@ class GetCardInfoResponse extends Response
     public function getUserId()
     {
         return $this->userId;
+    }
+
+    public function getCardReference(): ?string
+    {
+        return $this->isSuccessful() ? $this->getToken() : null;
+    }
+
+    public function getPaymentMethod(): object
+    {
+        $result = new \stdClass();
+
+        $result->imageUrl = '';
+        $result->last4 = $this->getLast4();
+        $result->cardType = $this->getCardBrand();
+
+        $result->expirationMonth = $this->data['card']['expiryMonth'];
+        $result->expirationYear = $this->data['card']['expiryYear'];
+
+        return $result;
+    }
+
+    public function getTransactionReference()
+    {
+        return $this->data['id'];
     }
 
 }

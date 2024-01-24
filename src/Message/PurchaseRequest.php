@@ -34,6 +34,7 @@ class PurchaseRequest extends AbstractRequest
                 'standingInstruction.mode' => 'REPEATED',
                 'standingInstruction.type' => 'UNSCHEDULED',
                 'standingInstruction.source' => 'MIT',
+                'merchantTransactionId' =>$this->getTransactionId(),
             ];
     }
 

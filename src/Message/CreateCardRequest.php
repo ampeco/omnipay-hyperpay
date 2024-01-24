@@ -11,6 +11,7 @@ class CreateCardRequest extends AbstractRequest
     protected string $userFirstName;
     protected string $userLastName;
     protected string $userEmail;
+    protected string $redirectUrl;
 
     public function getEndpoint(): string
     {
@@ -57,6 +58,16 @@ class CreateCardRequest extends AbstractRequest
         return $this->userEmail;
     }
 
+    public function setRedirectUrl($redirectUrl): void
+    {
+        $this->redirectUrl = $redirectUrl;
+    }
+
+    public function getRedirectUrl(): string
+    {
+        return $this->redirectUrl;
+    }
+
 
     /**
      * @inheritDoc
@@ -74,7 +85,7 @@ class CreateCardRequest extends AbstractRequest
                 'customer.givenName' => $this->getUserFirstName(),
                 'customer.surname' => $this->getUserLastName(),
                 'customer.email' => $this->getUserEmail(),
-                'amount' => $this->getAmount(),
+                'amount' => $this->getTestMode() ? intval($this->getAmount()) : $this->getAmount(),
                 'paymentType' => $this->gateway->getPaymentType(),
                 'standingInstruction.type' => 'UNSCHEDULED',
             ];
@@ -103,6 +114,6 @@ class CreateCardRequest extends AbstractRequest
         }
         $this->getGateway()->setToken($token);
 
-        return $this->response = new CreateCardResponse($this, $data, $statusCode);
+        return $this->response = new CreateCardResponse($this, $data, $statusCode, $this->getRedirectUrl());
     }
 }
