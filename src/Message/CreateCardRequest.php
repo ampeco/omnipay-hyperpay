@@ -110,10 +110,22 @@ class CreateCardRequest extends AbstractRequest
     {
         $token = json_decode($data, true)['id'] ?? null;
         if (is_null($token)) {
+            $this->tryToLog($data, $statusCode);
             throw new InvalidRequestException('Token is missing');
         }
         $this->getGateway()->setToken($token);
 
         return $this->response = new CreateCardResponse($this, $data, $statusCode, $this->getRedirectUrl());
+    }
+
+    private function tryToLog($data, $statusCode): void
+    {
+        if (function_exists('info')) {
+           info('Hyperpay Call: CreateCard - Token is missing', [
+               'payment_processor' => 'Hyperpay',
+               'data' => $data,
+               'status_code' => $statusCode,
+           ]);
+        }
     }
 }
