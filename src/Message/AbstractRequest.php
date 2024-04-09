@@ -56,4 +56,9 @@ abstract class AbstractRequest extends OmniPayAbstractRequest
     {
         return $this->getParameter('successUrl');
     }
+
+    public function getAmount()
+    {
+        return number_format(parent::getAmount(),2,'.','');
+    }
 }
