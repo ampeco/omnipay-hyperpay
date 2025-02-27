@@ -24,18 +24,24 @@ class PurchaseRequest extends AbstractRequest
      */
     public function getData()
     {
-        return
+        $data =
             [
                 'amount' => $this->getTestMode() ? intval($this->getAmount()) : $this->getAmount(),
                 'currency' => $this->getCurrency(),
-                'entityId' => $this->gateway->getRecurringEntityId(),
+                'entityId' => $this->gateway->getEntityId(),
                 'paymentType' => $this->gateway->getPaymentType(),
-                'shopperResultUrl' => $this->getReturnUrl(),
+//                'shopperResultUrl' => $this->getReturnUrl(),
                 'standingInstruction.mode' => 'REPEATED',
                 'standingInstruction.type' => 'UNSCHEDULED',
                 'standingInstruction.source' => 'MIT',
                 'merchantTransactionId' =>$this->getTransactionId(),
             ];
+
+        if ($this->getTestMode()) {
+
+            $data['testMode'] = 'EXTERNAL';
+        }
+        return $data;
     }
 
     protected function createResponse($data, $statusCode): PurchaseResponse

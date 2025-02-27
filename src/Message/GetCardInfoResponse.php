@@ -11,7 +11,8 @@ class GetCardInfoResponse extends Response
     }
     public function getToken()
     {
-        return $this->data['registrationId'];
+        return $this->data['registrationId'] ?? $this->data['id'];
+//        return $this->data['registrationId'];
     }
 
     public function getLast4()

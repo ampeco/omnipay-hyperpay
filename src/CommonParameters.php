@@ -129,4 +129,14 @@ trait CommonParameters
     {
         $this->setParameter('userLastName', $value);
     }
+
+    public function setMerchantTransactionId($value)
+    {
+        $this->setParameter('merchantTransactionId', $value);
+    }
+
+    public function getMerchantTransactionId()
+    {
+        return $this->getParameter('merchantTransactionId');
+    }
 }

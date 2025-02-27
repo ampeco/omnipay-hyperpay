@@ -18,15 +18,15 @@ class CreateCardRequest extends AbstractRequest
         return '/checkouts';
     }
 
-    public function getEntityId(): string
-    {
-        return $this->entityId;
-    }
-
-    public function setEntityId(string $entityId): void
-    {
-        $this->entityId = $entityId;
-    }
+//    public function getEntityId(): string
+//    {
+//        return $this->entityId;
+//    }
+//
+//    public function setEntityId(string $entityId): void
+//    {
+//        $this->entityId = $entityId;
+//    }
 
     public function setUserFirstName($userFirstName): void
     {
@@ -86,13 +86,16 @@ class CreateCardRequest extends AbstractRequest
                 'customer.surname' => $this->getUserLastName(),
                 'customer.email' => $this->getUserEmail(),
                 'amount' => $this->getTestMode() ? intval($this->getAmount()) : $this->getAmount(),
-                'paymentType' => $this->gateway->getPaymentType(),
-                'standingInstruction.type' => 'UNSCHEDULED',
+//                'paymentType' => $this->gateway->getPaymentType(),
+                'standingInstruction.type' => 'RECURRING',
             ];
 
         if ($this->getTestMode()) {
 
             $data['testMode'] = 'EXTERNAL';
+
+            $data['customParameters']['3DS2_enrolled'] = 'true';
+            $data['customParameters']['3DS2_flow'] = 'challenge';
         }
 
         return $data;

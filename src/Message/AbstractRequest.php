@@ -2,11 +2,14 @@
 
 namespace Ampeco\OmnipayHyperPay\Message;
 
+use Ampeco\OmnipayHyperPay\CommonParameters;
 use Ampeco\OmnipayHyperPay\Gateway;
 use Omnipay\Common\Message\AbstractRequest as OmniPayAbstractRequest;
 
 abstract class AbstractRequest extends OmniPayAbstractRequest
 {
+    use CommonParameters;
+
     protected ?Gateway $gateway;
 
     abstract public function getEndpoint();

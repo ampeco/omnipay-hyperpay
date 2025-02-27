@@ -19,14 +19,20 @@ class CaptureRequest extends AbstractRequest
      */
     public function getData()
     {
-        return
+        $data =
             [
                 'amount' => $this->getTestMode() ? intval($this->getAmount()) : $this->getAmount(),
                 'currency' => $this->getCurrency(),
                 'entityId' => $this->gateway->getPaRecurringEntityId(),
                 'paymentType' => $this->gateway->getPaymentType(),
-                'merchantTransactionId' => $this->getTransactionReference()
+                'merchantTransactionId' => $this->getMerchantTransactionId(),
+                'referencedPaymentId' => $this->getTransactionReference()
             ];
+        if ($this->getTestMode()) {
+
+            $data['testMode'] = 'EXTERNAL';
+        }
+        return $data;
     }
 
     protected function createResponse($data, $statusCode): Response

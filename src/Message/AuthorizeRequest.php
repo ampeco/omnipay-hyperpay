@@ -19,18 +19,24 @@ class AuthorizeRequest extends AbstractRequest
      */
     public function getData()
     {
-        return
+        $data =
             [
                 'amount' => $this->getTestMode() ? intval($this->getAmount()) : $this->getAmount(),
                 'currency' => $this->getCurrency(),
                 'entityId' => $this->gateway->getPaRecurringEntityId(),
                 'paymentType' => $this->gateway->getPaymentType(),
-                'shopperResultUrl' => $this->getReturnUrl(),
+//                'shopperResultUrl' => $this->getReturnUrl(),
                 'standingInstruction.mode' => 'REPEATED',
                 'standingInstruction.type' => 'UNSCHEDULED',
                 'standingInstruction.source' => 'MIT',
                 'merchantTransactionId' => $this->getTransactionReference()
             ];
+
+        if ($this->getTestMode()) {
+
+            $data['testMode'] = 'EXTERNAL';
+        }
+        return $data;
     }
 
     protected function createResponse($data, $statusCode): AuthorizeResponse
