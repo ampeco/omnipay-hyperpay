@@ -129,4 +129,14 @@ trait CommonParameters
     {
         $this->setParameter('userLastName', $value);
     }
+
+    public function getIntegrity()
+    {
+        return $this->getParameter('integrity');
+    }
+
+    public function setIntegrity($value): void
+    {
+        $this->setParameter('integrity', $value);
+    }
 }

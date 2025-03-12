@@ -88,6 +88,7 @@ class CreateCardRequest extends AbstractRequest
                 'amount' => $this->getTestMode() ? intval($this->getAmount()) : $this->getAmount(),
                 'paymentType' => $this->gateway->getPaymentType(),
                 'standingInstruction.type' => 'UNSCHEDULED',
+                'integrity' => 'true',
             ];
 
         if ($this->getTestMode()) {
@@ -109,11 +110,13 @@ class CreateCardRequest extends AbstractRequest
     protected function createResponse($data, $statusCode): CreateCardResponse
     {
         $token = json_decode($data, true)['id'] ?? null;
+        $integrity = json_decode($data, true)['integrity'] ?? null;
         if (is_null($token)) {
             $this->tryToLog($data, $statusCode);
             throw new InvalidRequestException('Token is missing');
         }
         $this->getGateway()->setToken($token);
+        $this->getGateway()->setIntegrity($integrity);
 
         return $this->response = new CreateCardResponse($this, $data, $statusCode, $this->getRedirectUrl());
     }

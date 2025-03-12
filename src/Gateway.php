@@ -17,7 +17,7 @@ class Gateway extends AbstractGateway
 {
     use CommonParameters;
 
-    const API_URL_PROD = 'https://oppwa.com/v1';
+    const API_URL_PROD = 'https://eu-prod.oppwa.com/v1';
     const API_URL_TEST = 'https://test.oppwa.com/v1';
 
     public function getName(): string
